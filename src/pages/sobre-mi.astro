@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import { perfil } from '../data/perfil';
+
+const contacto = [
+	{ etiqueta: 'GitHub', href: perfil.github, texto: 'josegavinov' },
+	{ etiqueta: 'LinkedIn', href: perfil.linkedin, texto: 'LinkedIn' },
+	{ etiqueta: 'Email', href: perfil.email ? `mailto:${perfil.email}` : '', texto: perfil.email },
+].filter((via) => via.href !== '');
+---
+
+<Base titulo="Sobre mí" descripcion={perfil.intro}>
+	<h1>Sobre mí</h1>
+
+	<p>
+		Hola, soy <strong>{perfil.nombre}</strong>. Soy {perfil.titulo.toLowerCase()} y vivo en {
+			perfil.ubicacion
+		}.
+	</p>
+
+	<p>{perfil.intro}</p>
+
+	<h2>Mi enfoque</h2>
+	<p>
+		Me interesa aprender los patrones de diseño, comprender el flujo de datos entre el frontend y
+		el backend, y escribir código mantenible aplicando buenas prácticas como SOLID y Clean Code.
+	</p>
+
+	<h2>Tecnologías</h2>
+	<ul class="etiquetas">
+		{perfil.habilidades.map((habilidad) => <li class="etiqueta">{habilidad}</li>)}
+	</ul>
+
+	<h2>Contacto</h2>
+	<ul class="contacto">
+		{
+			contacto.map((via) => (
+				<li>
+					<span class="sutil">{via.etiqueta}:</span>{' '}
+					<a href={via.href} rel="noopener noreferrer" target="_blank">
+						{via.texto}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</Base>
+
+<style>
+	.etiquetas {
+		margin-bottom: 1rem;
+	}
+
+	.contacto {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.4rem;
+	}
+</style>

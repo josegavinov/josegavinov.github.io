@@ -1,0 +1,61 @@
+---
+import { perfil } from '../data/perfil';
+
+const anio = new Date().getFullYear();
+
+const redes = [
+	{ href: perfil.github, texto: 'GitHub' },
+	{ href: perfil.linkedin, texto: 'LinkedIn' },
+	{ href: perfil.email ? `mailto:${perfil.email}` : '', texto: 'Email' },
+].filter((red) => red.href !== '');
+---
+
+<footer>
+	<div>
+		<p class="sutil">© {anio} {perfil.nombre}</p>
+		<ul>
+			{
+				redes.map((red) => (
+					<li>
+						<a href={red.href} rel="noopener noreferrer" target="_blank">
+							{red.texto}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</footer>
+
+<style>
+	footer {
+		background: var(--superficie);
+		border-top: 1px solid var(--borde);
+	}
+
+	div {
+		max-width: var(--ancho);
+		margin: 0 auto;
+		padding: 1.25rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem 1.5rem;
+	}
+
+	p {
+		margin: 0;
+		font-size: 0.9rem;
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+		margin: 0;
+		padding: 0;
+		font-size: 0.9rem;
+	}
+</style>

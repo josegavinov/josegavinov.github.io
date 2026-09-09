@@ -1,0 +1,73 @@
+---
+import { ruta } from '../utils/rutas';
+import { perfil } from '../data/perfil';
+
+const actual = Astro.url.pathname.replace(/\/$/, '');
+
+const enlaces = [
+	{ href: ruta('/'), texto: 'Inicio' },
+	{ href: ruta('/proyectos'), texto: 'Proyectos' },
+	{ href: ruta('/sobre-mi'), texto: 'Sobre mí' },
+];
+
+// Marca el enlace activo comparando la ruta sin la barra final.
+const esActivo = (href: string) => href.replace(/\/$/, '') === actual;
+---
+
+<header>
+	<nav aria-label="Navegación principal">
+		<a class="marca" href={ruta('/')}>{perfil.nombre.split(' ')[0]} Gaviño</a>
+		<ul>
+			{
+				enlaces.map((enlace) => (
+					<li>
+						<a href={enlace.href} aria-current={esActivo(enlace.href) ? 'page' : undefined}>
+							{enlace.texto}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</header>
+
+<style>
+	header {
+		background: var(--superficie);
+		border-bottom: 1px solid var(--borde);
+	}
+
+	nav {
+		max-width: var(--ancho);
+		margin: 0 auto;
+		padding: 0.9rem 1.25rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem 1.5rem;
+	}
+
+	.marca {
+		font-weight: 700;
+		color: var(--texto);
+	}
+
+	ul {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+		margin: 0;
+		padding: 0;
+		margin-left: auto;
+	}
+
+	a {
+		font-weight: 600;
+	}
+
+	a[aria-current='page'] {
+		text-decoration: underline;
+		text-underline-offset: 5px;
+	}
+</style>

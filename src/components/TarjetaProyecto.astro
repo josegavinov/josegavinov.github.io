@@ -1,0 +1,68 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { ruta } from '../utils/rutas';
+
+interface Props {
+	proyecto: CollectionEntry<'proyectos'>;
+}
+
+const { proyecto } = Astro.props;
+const { titulo, descripcion, tecnologias, repo, demo, borrador } = proyecto.data;
+---
+
+<article>
+	<h3>
+		<a href={ruta(`/proyectos/${proyecto.id}`)}>{titulo}</a>
+		{borrador && <span class="borrador">plantilla</span>}
+	</h3>
+	<p>{descripcion}</p>
+	<ul class="etiquetas">
+		{tecnologias.map((tec) => <li class="etiqueta">{tec}</li>)}
+	</ul>
+	<p class="enlaces">
+		<a href={ruta(`/proyectos/${proyecto.id}`)}>Ver detalle</a>
+		{repo && <a href={repo} rel="noopener noreferrer" target="_blank">Código</a>}
+		{demo && <a href={demo} rel="noopener noreferrer" target="_blank">Demo</a>}
+	</p>
+</article>
+
+<style>
+	article {
+		background: var(--superficie);
+		border: 1px solid var(--borde);
+		border-radius: var(--radio);
+		padding: 1.25rem 1.4rem;
+	}
+
+	h3 {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.6rem;
+		margin-bottom: 0.4rem;
+	}
+
+	.borrador {
+		font-size: 0.7rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: #fbbf24;
+		border: 1px solid #fbbf24;
+		border-radius: 999px;
+		padding: 0.05rem 0.55rem;
+	}
+
+	p {
+		margin-bottom: 0.9rem;
+	}
+
+	.enlaces {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+		margin: 1rem 0 0;
+		font-size: 0.9rem;
+		font-weight: 600;
+	}
+</style>

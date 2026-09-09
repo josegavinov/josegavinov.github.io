@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import TarjetaProyecto from '../../components/TarjetaProyecto.astro';
+import { obtenerProyectos } from '../../utils/proyectos';
+
+const proyectos = await obtenerProyectos();
+---
+
+<Base
+	titulo="Proyectos"
+	descripcion="Proyectos de software que he construido: qué resuelven, cómo están hechos y dónde ver el código."
+>
+	<h1>Proyectos</h1>
+	<p class="sutil">Qué resuelven, cómo están hechos y dónde ver el código.</p>
+
+	<div class="rejilla">
+		{proyectos.map((proyecto) => <TarjetaProyecto proyecto={proyecto} />)}
+	</div>
+</Base>
+
+<style>
+	.rejilla {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+		margin-top: 2rem;
+	}
+</style>

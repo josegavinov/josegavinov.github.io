@@ -1,0 +1,17 @@
+# Dependencias
+node_modules/
+
+# Salida del build
+dist/
+.astro/
+
+# Archivos de sistema macOS
+.DS_Store
+
+# Variables de entorno privadas
+.env
+.env.production
+
+# Archivos del editor / IDE
+.vscode/
+.idea/

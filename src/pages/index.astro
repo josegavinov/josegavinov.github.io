@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import TarjetaProyecto from '../components/TarjetaProyecto.astro';
+import { perfil } from '../data/perfil';
+import { ruta } from '../utils/rutas';
+import { obtenerProyectos } from '../utils/proyectos';
+
+const proyectos = await obtenerProyectos();
+const destacados = proyectos.filter((proyecto) => proyecto.data.destacado);
+---
+
+<Base titulo={perfil.nombre}>
+	<section class="portada">
+		<p class="sutil">{perfil.titulo}</p>
+		<h1>{perfil.nombre}</h1>
+		<p class="intro">{perfil.intro}</p>
+		<p class="acciones">
+			<a href={ruta('/proyectos')}>Ver proyectos</a>
+			<a href={perfil.github} rel="noopener noreferrer" target="_blank">GitHub</a>
+		</p>
+	</section>
+
+	{
+		destacados.length > 0 && (
+			<section>
+				<h2>Proyectos destacados</h2>
+				<div class="rejilla">
+					{destacados.map((proyecto) => (
+						<TarjetaProyecto proyecto={proyecto} />
+					))}
+				</div>
+				<p class="mas">
+					<a href={ruta('/proyectos')}>Ver todos los proyectos →</a>
+				</p>
+			</section>
+		)
+	}
+
+	<section>
+		<h2>Tecnologías</h2>
+		<ul class="etiquetas">
+			{perfil.habilidades.map((habilidad) => <li class="etiqueta">{habilidad}</li>)}
+		</ul>
+	</section>
+</Base>
+
+<style>
+	.portada {
+		padding-bottom: 0.5rem;
+	}
+
+	.intro {
+		max-width: 60ch;
+	}
+
+	.acciones {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		font-weight: 600;
+	}
+
+	.rejilla {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+	}
+
+	.mas {
+		margin-top: 1.25rem;
+		font-weight: 600;
+	}
+</style>
