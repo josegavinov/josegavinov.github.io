@@ -1,12 +1,27 @@
+/* ============================================================
+   Ruta A · Editorial — sistema visual del sitio.
+   Fondo claro, tinta casi negra, un solo acento.
+   ============================================================ */
 :root {
-	--fondo: #0f172a;
-	--superficie: #1e293b;
-	--borde: #334155;
-	--texto: #f8fafc;
-	--texto-suave: #94a3b8;
-	--acento: #38bdf8;
-	--ancho: 860px;
+	--fondo: #f1f2f4;
+	--panel: #ffffff;
+	--tinta: #0e1013;
+	--suave: #6b7079;
+	--linea: #cdd0d6;
+	--acento: #1f3fd4;
+	--verde: #17b26a;
+
+	--ancho: 1140px;
 	--radio: 10px;
+
+	/* Escala tipográfica */
+	--t-nombre: clamp(3.2rem, 13vw, 8rem);
+	--t-rotulo: clamp(1.9rem, 6vw, 3.6rem);
+	--t-titulo: clamp(1.5rem, 3.4vw, 2rem);
+	--t-cita: clamp(1.15rem, 2.3vw, 1.5rem);
+	--t-base: 1rem;
+	--t-menor: 0.9rem;
+	--t-etiqueta: 0.76rem;
 }
 
 *,
@@ -24,35 +39,44 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-	font-size: 16px;
-	line-height: 1.65;
 	background: var(--fondo);
-	color: var(--texto);
+	color: var(--tinta);
+	font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+	font-size: var(--t-base);
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
 }
 
 main {
 	flex: 1;
+	/* min-width:0 — sin esto, un titular ancho estira el ítem flex por
+	   encima del viewport y arrastra el resto de la página con él. */
+	min-width: 0;
 	width: 100%;
 	max-width: var(--ancho);
 	margin: 0 auto;
-	padding: 2.5rem 1.25rem 4rem;
+	padding: 3rem 1.5rem 4rem;
+}
+
+/* Titulares y elementos de interfaz en la grotesca */
+h1,
+h2,
+h3,
+h4,
+h5,
+nav,
+button,
+.ui {
+	font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 h1,
 h2,
 h3 {
-	line-height: 1.25;
+	line-height: 1.12;
+	letter-spacing: -0.025em;
 	margin: 0 0 0.6rem;
-}
-
-h1 {
-	font-size: clamp(1.75rem, 5vw, 2.5rem);
-}
-
-h2 {
-	font-size: clamp(1.3rem, 3.5vw, 1.65rem);
-	margin-top: 2.5rem;
+	text-wrap: balance;
 }
 
 p {
@@ -60,13 +84,12 @@ p {
 }
 
 a {
-	color: var(--acento);
+	color: var(--tinta);
 	text-decoration: none;
 }
 
-a:hover,
-a:focus-visible {
-	text-decoration: underline;
+a:hover {
+	color: var(--acento);
 }
 
 :focus-visible {
@@ -80,15 +103,17 @@ img {
 }
 
 code {
-	background: var(--superficie);
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	background: var(--panel);
+	border: 1px solid var(--linea);
 	border-radius: 4px;
 	padding: 0.1em 0.35em;
-	font-size: 0.9em;
+	font-size: 0.88em;
 }
 
 pre {
-	background: var(--superficie);
-	border: 1px solid var(--borde);
+	background: var(--panel);
+	border: 1px solid var(--linea);
 	border-radius: var(--radio);
 	padding: 1rem;
 	overflow-x: auto;
@@ -96,28 +121,81 @@ pre {
 
 pre code {
 	background: none;
+	border: 0;
 	padding: 0;
+}
+
+/* --- Piezas compartidas --- */
+
+/* Antetítulo en versalitas */
+.antetitulo {
+	font-family: 'Archivo', sans-serif;
+	font-size: var(--t-etiqueta);
+	font-weight: 700;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--suave);
+	margin: 0 0 0.9rem;
+}
+
+/* Botón sólido: se usa con moderación, solo donde debe caer el ojo */
+.boton {
+	display: inline-block;
+	font-family: 'Archivo', sans-serif;
+	font-size: var(--t-menor);
+	font-weight: 600;
+	background: var(--tinta);
+	color: var(--panel);
+	border-radius: 99px;
+	padding: 0.7rem 1.5rem;
+	transition: transform 220ms cubic-bezier(0.2, 0.7, 0.3, 1), background 220ms ease;
+}
+
+.boton:hover {
+	color: var(--panel);
+	background: var(--acento);
+	transform: translateY(-2px);
+}
+
+/* Tecnologías como texto, nunca como pastillas */
+.stack {
+	font-family: 'Archivo', sans-serif;
+	font-size: var(--t-menor);
+	font-weight: 500;
+	line-height: 1.9;
+	color: var(--suave);
+	margin: 0;
+}
+
+.stack b {
+	font-weight: 500;
+	color: var(--suave);
+}
+
+.stack b.fuerte {
+	font-weight: 700;
+	color: var(--tinta);
+}
+
+.stack b:not(:last-child)::after {
+	content: '  ·  ';
+	color: var(--linea);
+	font-weight: 400;
 }
 
 .sutil {
-	color: var(--texto-suave);
+	color: var(--suave);
 }
 
-/* Listas de etiquetas reutilizables (tecnologías, habilidades). */
-.etiquetas {
-	list-style: none;
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem;
-	margin: 0;
-	padding: 0;
-}
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
 
-.etiqueta {
-	background: var(--superficie);
-	border: 1px solid var(--borde);
-	border-radius: 999px;
-	padding: 0.2rem 0.75rem;
-	font-size: 0.85rem;
-	color: var(--texto-suave);
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+	}
 }

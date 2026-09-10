@@ -7,62 +7,87 @@ interface Props {
 }
 
 const { proyecto } = Astro.props;
-const { titulo, descripcion, tecnologias, repo, demo, borrador } = proyecto.data;
+const { titulo, descripcion, problema, tecnologias, repo, demo, borrador } = proyecto.data;
+
+// La cita del problema es lo que lleva el peso visual de la tarjeta.
+const cita = problema ?? descripcion;
 ---
 
 <article>
-	<h3>
-		<a href={ruta(`/proyectos/${proyecto.id}`)}>{titulo}</a>
-		{borrador && <span class="borrador">plantilla</span>}
-	</h3>
-	<p>{descripcion}</p>
-	<ul class="etiquetas">
-		{tecnologias.map((tec) => <li class="etiqueta">{tec}</li>)}
-	</ul>
+	<p class="tipo">{borrador ? 'Plantilla' : 'Proyecto real'}</p>
+
+	<blockquote>«{cita}»</blockquote>
+
+	<h3><a href={ruta(`/proyectos/${proyecto.id}`)}>{titulo}</a></h3>
+
+	<p class="stack">
+		{tecnologias.map((tec) => <b>{tec}</b>)}
+	</p>
+
 	<p class="enlaces">
-		<a href={ruta(`/proyectos/${proyecto.id}`)}>Ver detalle</a>
-		{repo && <a href={repo} rel="noopener noreferrer" target="_blank">Código</a>}
-		{demo && <a href={demo} rel="noopener noreferrer" target="_blank">Demo</a>}
+		<a href={ruta(`/proyectos/${proyecto.id}`)}>Ver detalle ↗</a>
+		{repo && <a href={repo} rel="noopener noreferrer" target="_blank">Código ↗</a>}
+		{demo && <a href={demo} rel="noopener noreferrer" target="_blank">Demo ↗</a>}
 	</p>
 </article>
 
 <style>
 	article {
-		background: var(--superficie);
-		border: 1px solid var(--borde);
+		background: var(--panel);
+		border: 1px solid var(--linea);
 		border-radius: var(--radio);
-		padding: 1.25rem 1.4rem;
+		padding: 1.6rem 1.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+		transition: transform 260ms cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 260ms ease;
+	}
+
+	article:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 18px 32px -22px rgba(14, 16, 19, 0.5);
+	}
+
+	.tipo {
+		margin: 0;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-etiqueta);
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--acento);
+	}
+
+	blockquote {
+		margin: 0;
+		font-size: var(--t-cita);
+		line-height: 1.35;
+		letter-spacing: -0.012em;
 	}
 
 	h3 {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.6rem;
-		margin-bottom: 0.4rem;
+		margin: 0;
+		font-size: var(--t-titulo);
+		font-weight: 700;
 	}
 
-	.borrador {
-		font-size: 0.7rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		color: #fbbf24;
-		border: 1px solid #fbbf24;
-		border-radius: 999px;
-		padding: 0.05rem 0.55rem;
-	}
-
-	p {
-		margin-bottom: 0.9rem;
+	.stack {
+		margin: 0;
 	}
 
 	.enlaces {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.25rem;
-		margin: 1rem 0 0;
-		font-size: 0.9rem;
+		gap: 1.4rem;
+		margin: auto 0 0;
+		padding-top: 0.6rem;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-menor);
 		font-weight: 600;
+	}
+
+	.enlaces a:hover {
+		text-decoration: underline;
+		text-underline-offset: 5px;
 	}
 </style>

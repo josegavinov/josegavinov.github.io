@@ -3,63 +3,145 @@ import Base from '../layouts/Base.astro';
 import { perfil } from '../data/perfil';
 
 const contacto = [
-	{ etiqueta: 'GitHub', href: perfil.github, texto: 'josegavinov' },
-	{ etiqueta: 'LinkedIn', href: perfil.linkedin, texto: 'gaviñojose' },
-	{ etiqueta: 'Email', href: perfil.email ? `mailto:${perfil.email}` : '', texto: perfil.email },
+	{ campo: 'GitHub', href: perfil.github, texto: 'josegavinov', externo: true },
+	{ campo: 'LinkedIn', href: perfil.linkedin, texto: 'gaviñojose', externo: true },
+	{
+		campo: 'Email',
+		href: perfil.email ? `mailto:${perfil.email}` : '',
+		texto: perfil.email,
+		externo: false,
+	},
 ].filter((via) => via.href !== '');
 ---
 
 <Base titulo="Sobre mí" descripcion={perfil.intro}>
-	<h1>Sobre mí</h1>
+	<p class="antetitulo">Sobre mí</p>
+	<h1>Construyo backend que se puede mantener.</h1>
 
-	<p>
-		Hola, soy <strong>{perfil.nombre}</strong>. Soy {perfil.titulo.toLowerCase()} y vivo en {
-			perfil.ubicacion
-		}.
-	</p>
+	<div class="columnas">
+		<div class="prosa">
+			<p>
+				Hola, soy <strong>{perfil.nombre}</strong>. {perfil.titulo}, y vivo en {
+					perfil.ficha.find((f) => f.campo === 'Ubicación')?.valor
+				}.
+			</p>
 
-	<p>{perfil.intro}</p>
+			<p>{perfil.intro}</p>
 
-	<h2>Mi enfoque</h2>
-	<p>
-		Me interesa aprender los patrones de diseño, comprender el flujo de datos entre el frontend y
-		el backend, y escribir código mantenible aplicando buenas prácticas como SOLID y Clean Code.
-	</p>
+			<h2>Mi enfoque</h2>
+			<p>
+				Me interesa aprender los patrones de diseño, comprender el flujo de datos entre el
+				frontend y el backend, y escribir código mantenible aplicando buenas prácticas como
+				SOLID y Clean Code.
+			</p>
+		</div>
 
-	<h2>Tecnologías</h2>
-	<ul class="etiquetas">
-		{perfil.habilidades.map((habilidad) => <li class="etiqueta">{habilidad}</li>)}
-	</ul>
+		<aside>
+			<dl class="ficha">
+				{
+					perfil.ficha.map((linea) => (
+						<div>
+							<dt>{linea.campo}</dt>
+							<dd>{linea.valor}</dd>
+						</div>
+					))
+				}
+			</dl>
 
-	<h2>Contacto</h2>
-	<ul class="contacto">
-		{
-			contacto.map((via) => (
-				<li>
-					<span class="sutil">{via.etiqueta}:</span>{' '}
-					<a
-						href={via.href}
-						rel={via.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-						target={via.href.startsWith('mailto:') ? undefined : '_blank'}
-					>
-						{via.texto}
-					</a>
-				</li>
-			))
-		}
-	</ul>
+			<h2 class="antetitulo">Tecnologías</h2>
+			<p class="stack">
+				{perfil.habilidades.map((h) => <b class={h.fuerte ? 'fuerte' : undefined}>{h.nombre}</b>)}
+			</p>
+
+			<h2 class="antetitulo">Contacto</h2>
+			<dl class="ficha">
+				{
+					contacto.map((via) => (
+						<div>
+							<dt>{via.campo}</dt>
+							<dd>
+								<a
+									href={via.href}
+									rel={via.externo ? 'noopener noreferrer' : undefined}
+									target={via.externo ? '_blank' : undefined}
+								>
+									{via.texto}
+								</a>
+							</dd>
+						</div>
+					))
+				}
+			</dl>
+		</aside>
+	</div>
 </Base>
 
 <style>
-	.etiquetas {
-		margin-bottom: 1rem;
+	h1 {
+		font-size: var(--t-rotulo);
+		font-weight: 900;
+		max-width: 18ch;
+		margin-bottom: 2.5rem;
 	}
 
-	.contacto {
-		list-style: none;
-		margin: 0;
-		padding: 0;
+	.columnas {
 		display: grid;
-		gap: 0.4rem;
+		grid-template-columns: 1.25fr 1fr;
+		gap: 3.5rem;
+		align-items: start;
+	}
+
+	.prosa {
+		max-width: 62ch;
+	}
+
+	.prosa h2 {
+		font-size: var(--t-titulo);
+		font-weight: 700;
+		margin-top: 2.2rem;
+	}
+
+	.ficha {
+		margin: 0 0 2.2rem;
+		border-top: 2px solid var(--tinta);
+		padding-top: 0.9rem;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-menor);
+	}
+
+	.ficha div {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.2rem 1rem;
+		padding: 0.32rem 0;
+	}
+
+	.ficha dt {
+		color: var(--suave);
+		font-weight: 600;
+	}
+
+	.ficha dd {
+		margin: 0;
+		font-weight: 600;
+		text-align: right;
+	}
+
+	.ficha a:hover {
+		text-decoration: underline;
+		text-underline-offset: 5px;
+	}
+
+	aside .stack {
+		margin-bottom: 2.2rem;
+	}
+
+	@media (max-width: 900px) {
+		.columnas {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
 	}
 </style>

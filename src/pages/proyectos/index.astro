@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import TarjetaProyecto from '../../components/TarjetaProyecto.astro';
 import { obtenerProyectos } from '../../utils/proyectos';
+import { perfil } from '../../data/perfil';
 
 const proyectos = await obtenerProyectos();
 ---
@@ -10,19 +11,104 @@ const proyectos = await obtenerProyectos();
 	titulo="Proyectos"
 	descripcion="Proyectos de software que he construido: qué resuelven, cómo están hechos y dónde ver el código."
 >
-	<h1>Proyectos</h1>
-	<p class="sutil">Qué resuelven, cómo están hechos y dónde ver el código.</p>
+	<header class="cabecera">
+		<p class="agua" aria-hidden="true">PROYECTOS</p>
+		<h1><span>/</span>LO QUE HE CONSTRUIDO</h1>
+	</header>
+
+	<div class="barra">
+		<p class="cuenta">
+			{`${proyectos.length} ${proyectos.length === 1 ? 'proyecto publicado' : 'proyectos publicados'}`}
+		</p>
+		<a class="ver" href={perfil.github} rel="noopener noreferrer" target="_blank">Ver en GitHub ↗</a>
+	</div>
 
 	<div class="rejilla">
 		{proyectos.map((proyecto) => <TarjetaProyecto proyecto={proyecto} />)}
+		{proyectos.length < 3 && <p class="ranura">Próximo proyecto</p>}
 	</div>
 </Base>
 
 <style>
+	.cabecera {
+		position: relative;
+		text-align: center;
+		padding-top: 5.5rem;
+		margin-bottom: 2.5rem;
+		/* La marca de agua es decorativa: que nunca provoque scroll lateral */
+		overflow: hidden;
+	}
+
+	/* Marca de agua: decorativa, detrás del rótulo */
+	.agua {
+		position: absolute;
+		inset-inline: 0;
+		top: 0;
+		margin: 0;
+		font-family: 'Archivo', sans-serif;
+		font-size: clamp(1.75rem, 12vw, 8rem);
+		font-weight: 900;
+		letter-spacing: -0.03em;
+		line-height: 1;
+		color: rgba(14, 16, 19, 0.05);
+		user-select: none;
+		pointer-events: none;
+	}
+
+	h1 {
+		position: relative;
+		margin: 0;
+		font-size: var(--t-rotulo);
+		font-weight: 900;
+		letter-spacing: -0.03em;
+	}
+
+	h1 span {
+		color: var(--acento);
+	}
+
+	.barra {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.75rem 1.5rem;
+		border-bottom: 1px solid var(--linea);
+		padding-bottom: 0.9rem;
+		margin-bottom: 2rem;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-menor);
+		font-weight: 600;
+	}
+
+	.cuenta {
+		margin: 0;
+		color: var(--suave);
+	}
+
+	.ver:hover {
+		text-decoration: underline;
+		text-underline-offset: 5px;
+	}
+
 	.rejilla {
 		display: grid;
-		gap: 1rem;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-		margin-top: 2rem;
+		gap: 1.5rem;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+		align-items: stretch;
+	}
+
+	.ranura {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0;
+		min-height: 190px;
+		border: 1px dashed var(--linea);
+		border-radius: var(--radio);
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-menor);
+		font-weight: 600;
+		color: var(--suave);
 	}
 </style>

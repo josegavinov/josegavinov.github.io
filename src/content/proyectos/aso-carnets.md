@@ -1,6 +1,7 @@
 ---
 titulo: Aso-Carnets
 descripcion: Carnets virtuales para jóvenes deportistas, reemplazando el uso de su documento personal en torneos y entrenamientos.
+problema: Los deportistas tenían que llevar su cédula física a cada torneo.
 tecnologias:
   - JavaScript
   - Node.js

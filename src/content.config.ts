@@ -9,6 +9,9 @@ const proyectos = defineCollection({
 	schema: z.object({
 		titulo: z.string(),
 		descripcion: z.string(),
+		// Frase que lidera la tarjeta: el problema en palabras del usuario.
+		// Si falta, la tarjeta muestra la descripción.
+		problema: z.string().optional(),
 		tecnologias: z.array(z.string()),
 		repo: z.url().optional(),
 		demo: z.url().optional(),

@@ -1,73 +1,206 @@
 ---
 import Base from '../layouts/Base.astro';
-import TarjetaProyecto from '../components/TarjetaProyecto.astro';
 import { perfil } from '../data/perfil';
 import { ruta } from '../utils/rutas';
 import { obtenerProyectos } from '../utils/proyectos';
 
 const proyectos = await obtenerProyectos();
-const destacados = proyectos.filter((proyecto) => proyecto.data.destacado);
+const destacados = proyectos.filter((proyecto) => proyecto.data.destacado).slice(0, 2);
+
+// La portada reserva dos ranuras de destacado; si falta uno, se ve el hueco
+// en lugar de descolgar la retícula.
+const ranuras = [destacados[0], destacados[1]];
 ---
 
 <Base titulo={perfil.nombre}>
-	<section class="portada">
-		<p class="sutil">{perfil.titulo}</p>
-		<h1>{perfil.nombre}</h1>
-		<p class="intro">{perfil.intro}</p>
-		<p class="acciones">
-			<a href={ruta('/proyectos')}>Ver proyectos</a>
-			<a href={perfil.github} rel="noopener noreferrer" target="_blank">GitHub</a>
-		</p>
-	</section>
+	<div class="portada">
+		<section class="identidad">
+			<p class="antetitulo">{perfil.rol}</p>
 
-	{
-		destacados.length > 0 && (
-			<section>
-				<h2>Proyectos destacados</h2>
-				<div class="rejilla">
-					{destacados.map((proyecto) => (
-						<TarjetaProyecto proyecto={proyecto} />
-					))}
-				</div>
-				<p class="mas">
-					<a href={ruta('/proyectos')}>Ver todos los proyectos →</a>
-				</p>
+			<h1>
+				<span class="hueco">{perfil.nombrePila}</span>
+				<span>{perfil.apellido}</span>
+			</h1>
+
+			<p class="stack">
+				{perfil.habilidades.map((h) => <b class={h.fuerte ? 'fuerte' : undefined}>{h.nombre}</b>)}
+			</p>
+
+			<a class="boton" href={ruta('/proyectos')}>Ver proyectos ↗</a>
+		</section>
+
+		<aside class="lateral">
+			<dl class="ficha">
+				{
+					perfil.ficha.map((linea) => (
+						<div>
+							<dt>{linea.campo}</dt>
+							<dd>{linea.valor}</dd>
+						</div>
+					))
+				}
+			</dl>
+
+			<section class="destacados">
+				<h2 class="antetitulo">Proyectos destacados</h2>
+
+				{
+					ranuras.map((proyecto) =>
+						proyecto ? (
+							<a class="mini" href={ruta(`/proyectos/${proyecto.id}`)}>
+								<span class="fila">
+									<h3>{proyecto.data.titulo}</h3>
+									<span class="tec">{proyecto.data.tecnologias[0]}</span>
+								</span>
+								<p>{proyecto.data.descripcion}</p>
+							</a>
+						) : (
+							<p class="mini vacio">Tu siguiente destacado entra aquí</p>
+						),
+					)
+				}
 			</section>
-		)
-	}
-
-	<section>
-		<h2>Tecnologías</h2>
-		<ul class="etiquetas">
-			{perfil.habilidades.map((habilidad) => <li class="etiqueta">{habilidad}</li>)}
-		</ul>
-	</section>
+		</aside>
+	</div>
 </Base>
 
 <style>
 	.portada {
-		padding-bottom: 0.5rem;
+		display: grid;
+		grid-template-columns: 1.22fr 1fr;
+		gap: 3.5rem;
+		align-items: start;
+		padding-top: 1.5rem;
 	}
 
-	.intro {
-		max-width: 60ch;
+	/* --- Identidad --- */
+	.identidad {
+		/* El nombre se mide contra su propia columna: así nunca desborda,
+		   ni en pantalla ancha ni en móvil. */
+		container-type: inline-size;
 	}
 
-	.acciones {
+	h1 {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		/* 22cqw deja ~10% de margen: "GAVIÑO" en Archivo Black mide
+		   ~4.05em de ancho, más de lo que sugiere el conteo de letras. */
+		font-size: clamp(2.2rem, 22cqw, 8.5rem);
+		font-weight: 900;
+		letter-spacing: -0.045em;
+		/* 1.04 y no menos: por debajo, la tilde de la Ñ toca la línea de arriba */
+		line-height: 1.04;
+		text-transform: uppercase;
+		margin: 0 0 1.5rem;
+	}
+
+	h1 .hueco {
+		color: transparent;
+		-webkit-text-stroke: 1.5px var(--tinta);
+	}
+
+	.stack {
+		margin-bottom: 1.8rem;
+	}
+
+	/* --- Ficha --- */
+	.ficha {
+		margin: 0 0 2rem;
+		border-top: 2px solid var(--tinta);
+		padding-top: 0.9rem;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-menor);
+	}
+
+	.ficha div {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.5rem;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.2rem 1rem;
+		padding: 0.32rem 0;
+	}
+
+	.ficha dt {
+		color: var(--suave);
 		font-weight: 600;
 	}
 
-	.rejilla {
-		display: grid;
+	.ficha dd {
+		margin: 0;
+		font-weight: 600;
+		text-align: right;
+	}
+
+	/* --- Destacados --- */
+	.destacados {
+		display: flex;
+		flex-direction: column;
+		gap: 0.8rem;
+	}
+
+	.destacados .antetitulo {
+		margin-bottom: 0;
+	}
+
+	.mini {
+		display: block;
+		background: var(--panel);
+		border: 1px solid var(--linea);
+		border-radius: var(--radio);
+		padding: 1.1rem 1.25rem;
+		transition: transform 240ms cubic-bezier(0.2, 0.7, 0.3, 1), border-color 240ms ease;
+	}
+
+	.mini:hover {
+		color: var(--tinta);
+		border-color: var(--tinta);
+		transform: translateX(4px);
+	}
+
+	.mini .fila {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
 		gap: 1rem;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+		font-family: 'Archivo', sans-serif;
 	}
 
-	.mas {
-		margin-top: 1.25rem;
+	.mini h3 {
+		margin: 0;
+		font-size: 1.15rem;
+		font-weight: 700;
+	}
+
+	.mini .tec {
+		font-size: var(--t-menor);
+		font-weight: 500;
+		color: var(--suave);
+	}
+
+	.mini p {
+		margin: 0.4rem 0 0;
+		font-size: var(--t-menor);
+		line-height: 1.5;
+		color: var(--suave);
+	}
+
+	.mini.vacio {
+		border-style: dashed;
+		background: none;
+		text-align: center;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-menor);
 		font-weight: 600;
+		color: var(--suave);
+		padding: 1.7rem 1.25rem;
+	}
+
+	@media (max-width: 900px) {
+		.portada {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
 	}
 </style>

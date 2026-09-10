@@ -1,6 +1,7 @@
 ---
 titulo: Nombre del proyecto
 descripcion: Una frase que explique qué problema resuelve este proyecto.
+problema: La frase corta del problema, tal como lo diría alguien que lo sufría.
 tecnologias:
   - Tecnología 1
   - Tecnología 2
