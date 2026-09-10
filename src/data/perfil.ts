@@ -53,7 +53,7 @@ export const perfil = {
 		},
 		{
 			area: 'Bases de datos',
-			items: ['PostgreSQL', 'MySQL'],
+			items: ['PostgreSQL', 'MySQL', 'Prisma'],
 		},
 		{
 			area: 'Cómputo paralelo',
@@ -61,7 +61,7 @@ export const perfil = {
 		},
 		{
 			area: 'Herramientas',
-			items: ['Docker', 'Git', 'Linux', 'Make', 'Vercel'],
+			items: ['Docker', 'Git', 'Make', 'Postman', 'Vercel'],
 		},
 		{
 			area: 'CI y pruebas',
