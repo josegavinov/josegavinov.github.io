@@ -10,6 +10,7 @@ const total = (await getCollection('proyectos')).filter(
 const actual = Astro.url.pathname.replace(/\/$/, '');
 
 const enlaces = [
+	{ href: ruta('/'), texto: 'Inicio' },
 	{ href: ruta('/proyectos'), texto: 'Proyectos', cuenta: total },
 	{ href: ruta('/sobre-mi'), texto: 'Sobre mí' },
 ];
@@ -19,10 +20,6 @@ const esActivo = (href: string) => href.replace(/\/$/, '') === actual;
 
 <header>
 	<nav aria-label="Navegación principal">
-		<a class="marca" href={ruta('/')} aria-current={actual === '' ? 'page' : undefined}>
-			{perfil.nombrePila} {perfil.apellido}
-		</a>
-
 		{
 			perfil.disponibilidad && (
 				<p class="disponible">
@@ -58,13 +55,6 @@ const esActivo = (href: string) => href.replace(/\/$/, '') === actual;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.75rem 1.5rem;
-	}
-
-	.marca {
-		font-family: 'Archivo', sans-serif;
-		font-size: 1rem;
-		font-weight: 700;
-		letter-spacing: -0.02em;
 	}
 
 	.disponible {
