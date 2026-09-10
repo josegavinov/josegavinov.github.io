@@ -1,6 +1,6 @@
 ---
-titulo: MedClinic ERP
-descripcion: "ERP médico multi-consultorio: historia clínica, agenda y recetas en un flujo guiado, con cada médico viendo solo a sus pacientes."
+titulo: MedClinic
+descripcion: "Proyecto médico multi-consultorio: historia clínica, agenda y recetas en un flujo guiado, con cada médico viendo solo a sus pacientes."
 problema: La historia clínica de un paciente vivía repartida entre papeles y consultorios.
 tecnologias:
   - Next.js
