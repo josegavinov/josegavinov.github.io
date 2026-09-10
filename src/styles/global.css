@@ -30,6 +30,12 @@
 	box-sizing: border-box;
 }
 
+/* El filtro oculta tarjetas con el atributo `hidden`, que debe ganarle
+   al `display` que cada componente se ponga a sí mismo. */
+[hidden] {
+	display: none !important;
+}
+
 html {
 	scroll-behavior: smooth;
 }

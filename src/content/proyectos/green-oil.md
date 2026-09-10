@@ -8,8 +8,8 @@ tecnologias:
 repo: https://github.com/josegavinov/green-oil-web
 demo: https://green-oil-web.vercel.app
 contexto: personal
-orden: 4
-destacado: true
+orden: 8
+destacado: false
 ---
 
 ## Qué es

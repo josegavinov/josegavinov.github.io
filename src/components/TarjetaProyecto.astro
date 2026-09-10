@@ -21,7 +21,7 @@ const rotulos = {
 const rotulo = borrador ? 'Plantilla' : rotulos[contexto];
 ---
 
-<article>
+<article data-contexto={contexto}>
 	<p class="tipo">{rotulo}</p>
 
 	<blockquote>«{cita}»</blockquote>
@@ -37,8 +37,8 @@ const rotulo = borrador ? 'Plantilla' : rotulos[contexto];
 	<p class="enlaces">
 		<a href={ruta(`/proyectos/${proyecto.id}`)}>Ver detalle ↗</a>
 		{repo && <a href={repo} rel="noopener noreferrer" target="_blank">Código ↗</a>}
-		{privado && !repo && <span class="cerrado">Repositorio privado</span>}
 		{demo && <a href={demo} rel="noopener noreferrer" target="_blank">Demo ↗</a>}
+		{privado && !repo && <span class="cerrado">Repositorio privado</span>}
 	</p>
 </article>
 

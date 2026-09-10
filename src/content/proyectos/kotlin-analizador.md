@@ -9,7 +9,7 @@ tecnologias:
 repo: https://github.com/Jorgelet/kotlin-analizador
 contexto: academico
 rol: Una de las tres partes del analizador, en sus tres fases, más la interfaz web
-orden: 3
+orden: 7
 destacado: false
 ---
 

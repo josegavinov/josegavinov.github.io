@@ -11,7 +11,7 @@ tecnologias:
 repo: https://github.com/josegavinov/espol-quest
 contexto: academico
 rol: Backend en Ruby on Rails y modelo de datos
-orden: 2
+orden: 6
 destacado: false
 ---
 

@@ -8,8 +8,8 @@ tecnologias:
   - Sockets
 repo: https://github.com/josegavinov/ProyectoAKLight
 contexto: academico
-orden: 1
-destacado: true
+orden: 4
+destacado: false
 ---
 
 ## Qué es

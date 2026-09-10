@@ -8,7 +8,7 @@ tecnologias:
   - OpenCL
 repo: https://github.com/josegavinov/gpu-benchmark
 contexto: academico
-orden: 3
+orden: 5
 destacado: false
 ---
 
