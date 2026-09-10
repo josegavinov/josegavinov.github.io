@@ -7,17 +7,16 @@ export const perfil = {
 	rol: 'Desarrollador Backend',
 	titulo: 'Estudiante de Ingeniería en Computación — ESPOL',
 	// Insignia de la barra superior. Ponlo en null para ocultarla.
-	disponibilidad: 'Disponible para prácticas',
+	disponibilidad: 'Disponible',
 	intro:
 		'Me interesa el desarrollo backend y el diseño de software: entender cómo funcionan ' +
-		'las tecnologías desde sus cimientos y escribir código mantenible con arquitecturas ' +
+		'cada una de las tecnologías aplicadas y escribir código mantenible con arquitecturas ' +
 		'limpias y modulares.',
 	// Ficha de la columna derecha en la portada.
 	ficha: [
 		{ campo: 'Formación', valor: 'ESPOL' },
 		{ campo: 'Carrera', valor: 'Ing. Computación' },
-		{ campo: 'Ubicación', valor: 'Ecuador' },
-		{ campo: 'Enfoque', valor: 'Backend · APIs' },
+		{ campo: 'Enfoque', valor: 'Backend · APIs · Desarrollo' },
 	],
 	// Déjalo vacío si algún día quieres ocultar el email del sitio.
 	email: 'josegavinovillacis14@gmail.com',
@@ -62,7 +61,11 @@ export const perfil = {
 		},
 		{
 			area: 'Herramientas',
-			items: ['Docker', 'Git', 'Vercel'],
+			items: ['Docker', 'Git', 'Linux', 'Make', 'Vercel'],
+		},
+		{
+			area: 'CI y pruebas',
+			items: ['GitHub Actions', 'JUnit', 'ESLint'],
 		},
 	],
 } as const;
