@@ -32,17 +32,13 @@ const filtros = [
 			{
 				filtros.map((f) => (
 					<button type="button" data-filtro={f.clave} aria-pressed={f.clave === 'todos'}>
-						{f.texto} <sup>[{cuenta(f.clave)}]</sup>
+						{f.texto}
 					</button>
 				))
 			}
 		</div>
 		<a class="ver" href={perfil.github} rel="noopener noreferrer" target="_blank">Ver en GitHub ↗</a>
 	</div>
-
-	<p class="cuenta" data-cuenta>
-		{`${proyectos.length} ${proyectos.length === 1 ? 'proyecto publicado' : 'proyectos publicados'}`}
-	</p>
 
 	<div class="rejilla">
 		{proyectos.map((proyecto) => <TarjetaProyecto proyecto={proyecto} />)}
@@ -54,7 +50,6 @@ const filtros = [
 <script>
 	const botones = document.querySelectorAll<HTMLButtonElement>('[data-filtro]');
 	const tarjetas = document.querySelectorAll<HTMLElement>('.rejilla > [data-contexto]');
-	const cuenta = document.querySelector<HTMLElement>('[data-cuenta]');
 	const vacio = document.querySelector<HTMLElement>('.vacio');
 
 	function aplicar(clave: string) {
@@ -65,9 +60,6 @@ const filtros = [
 			if (mostrar) visibles++;
 		});
 		botones.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filtro === clave)));
-		if (cuenta) {
-			cuenta.textContent = `${visibles} ${visibles === 1 ? 'proyecto' : 'proyectos'}`;
-		}
 		if (vacio) vacio.hidden = visibles > 0;
 	}
 
@@ -114,11 +106,10 @@ const filtros = [
 	.barra {
 		display: flex;
 		flex-wrap: wrap;
-		align-items: baseline;
+		align-items: center;
 		justify-content: space-between;
-		gap: 0.75rem 1.5rem;
-		border-bottom: 1px solid var(--linea);
-		padding-bottom: 0.9rem;
+		gap: 1rem 2rem;
+		margin-bottom: 2.25rem;
 		font-family: 'Archivo', sans-serif;
 		font-size: var(--t-menor);
 		font-weight: 600;
@@ -127,45 +118,42 @@ const filtros = [
 	.filtros {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1.5rem;
+		gap: 1.75rem;
 	}
 
 	button {
 		font: inherit;
 		background: none;
 		border: 0;
-		padding: 0 0 0.2rem;
+		padding: 0;
 		color: var(--suave);
 		cursor: pointer;
-		border-bottom: 2px solid transparent;
-		transition: color 200ms ease, border-color 200ms ease;
+		transition: color 200ms ease;
 	}
 
 	button:hover {
 		color: var(--tinta);
 	}
 
+	/* El activo se marca solo con tinta: sin subrayado, para no competir
+	   con el que el menú usa para la página actual. */
 	button[aria-pressed='true'] {
 		color: var(--tinta);
-		border-bottom-color: var(--tinta);
 	}
 
-	button sup {
-		font-size: 0.7em;
-		font-weight: 500;
+	/* Pastilla a la derecha, como el "View All Work" de la referencia */
+	.ver {
+		background: var(--panel);
+		border: 1px solid var(--linea);
+		border-radius: 99px;
+		padding: 0.55rem 1.25rem;
+		transition: border-color 200ms ease, transform 200ms cubic-bezier(0.2, 0.7, 0.3, 1);
 	}
 
 	.ver:hover {
-		text-decoration: underline;
-		text-underline-offset: 5px;
-	}
-
-	.cuenta {
-		margin: 0.9rem 0 2rem;
-		font-family: 'Archivo', sans-serif;
-		font-size: var(--t-menor);
-		font-weight: 600;
-		color: var(--suave);
+		color: var(--tinta);
+		border-color: var(--tinta);
+		transform: translateY(-1px);
 	}
 
 	.rejilla {
