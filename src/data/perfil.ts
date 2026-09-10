@@ -8,11 +8,12 @@ export const perfil = {
 		'Me interesa el desarrollo backend y el diseño de software: entender cómo funcionan ' +
 		'las tecnologías desde sus cimientos y escribir código mantenible con arquitecturas ' +
 		'limpias y modulares.',
-	// TODO: email de contacto que quieras mostrar públicamente (déjalo vacío para ocultarlo).
-	email: '',
+	// Déjalo vacío si algún día quieres ocultar el email del sitio.
+	email: 'josegavinovillacis14@gmail.com',
 	github: 'https://github.com/josegavinov',
-	// TODO: confirmar la URL real de LinkedIn (la del README estaba incompleta).
-	linkedin: '',
+	// La `ñ` va percent-encoded (%C3%B1) para que el enlace sobreviva al
+	// copiarlo entre herramientas; el navegador la muestra normal.
+	linkedin: 'https://www.linkedin.com/in/gavi%C3%B1ojose',
 	habilidades: [
 		'Java',
 		'Python',

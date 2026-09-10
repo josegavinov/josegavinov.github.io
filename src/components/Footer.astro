@@ -17,7 +17,11 @@ const redes = [
 			{
 				redes.map((red) => (
 					<li>
-						<a href={red.href} rel="noopener noreferrer" target="_blank">
+						<a
+							href={red.href}
+							rel={red.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+							target={red.href.startsWith('mailto:') ? undefined : '_blank'}
+						>
 							{red.texto}
 						</a>
 					</li>

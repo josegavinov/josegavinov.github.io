@@ -4,7 +4,7 @@ import { perfil } from '../data/perfil';
 
 const contacto = [
 	{ etiqueta: 'GitHub', href: perfil.github, texto: 'josegavinov' },
-	{ etiqueta: 'LinkedIn', href: perfil.linkedin, texto: 'LinkedIn' },
+	{ etiqueta: 'LinkedIn', href: perfil.linkedin, texto: 'gaviñojose' },
 	{ etiqueta: 'Email', href: perfil.email ? `mailto:${perfil.email}` : '', texto: perfil.email },
 ].filter((via) => via.href !== '');
 ---
@@ -37,7 +37,11 @@ const contacto = [
 			contacto.map((via) => (
 				<li>
 					<span class="sutil">{via.etiqueta}:</span>{' '}
-					<a href={via.href} rel="noopener noreferrer" target="_blank">
+					<a
+						href={via.href}
+						rel={via.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+						target={via.href.startsWith('mailto:') ? undefined : '_blank'}
+					>
 						{via.texto}
 					</a>
 				</li>
