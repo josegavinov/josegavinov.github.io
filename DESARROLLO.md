@@ -44,7 +44,27 @@ Nombre, título, redes y lista de tecnologías viven en `src/data/perfil.ts`.
 
 ## Despliegue
 
+Hay dos caminos. El primero es el bueno; el segundo es el plan B si GitHub
+Actions no está disponible.
+
+### A) Automático (GitHub Actions)
+
 `.github/workflows/deploy.yml` compila y publica en cada push a `main`.
-Requiere activarlo una vez: **Settings → Pages → Source: GitHub Actions**.
+Activarlo una vez: **Settings → Pages → Source: GitHub Actions**.
+
+### B) Manual, sin Actions
+
+Si Actions está bloqueado (por ejemplo por un problema de facturación en la
+cuenta), publica desde tu máquina:
+
+```bash
+npm run deploy
+```
+
+Compila y empuja `dist/` a la rama `gh-pages`. Activarlo una vez:
+**Settings → Pages → Source: Deploy from a branch → `gh-pages` / (root)**.
+
+Con este camino tienes que correr `npm run deploy` cada vez que quieras
+publicar cambios; no basta con hacer push a `main`.
 
 El sitio queda en https://josegavinov.github.io
