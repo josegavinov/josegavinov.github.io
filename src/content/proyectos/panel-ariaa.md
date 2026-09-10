@@ -9,8 +9,8 @@ tecnologias:
 demo: https://app.ariaa.io
 privado: true
 contexto: profesional
-orden: 2
-destacado: true
+orden: 3
+destacado: false
 ---
 
 ## Qué es
@@ -25,6 +25,12 @@ Un bot que no se puede interrumpir es un riesgo: cuando falla, falla delante
 del cliente y nadie se entera hasta que es tarde. Que el humano pueda entrar en
 cualquier conversación convierte la automatización en algo que un negocio se
 atreve a dejar encendido.
+
+## Cómo encaja
+
+El panel es la mitad visible de un sistema cuyo motor es la
+[API del bot](/proyectos/bot-ariaa): una en FastAPI, resolviendo la
+conversación; el otro en Next.js, dando control sobre lo que hizo.
 
 ## Acceso
 

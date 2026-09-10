@@ -45,7 +45,7 @@ export const perfil = {
 		},
 		{
 			area: 'Backend',
-			items: ['Node.js', 'Flask', 'Ruby on Rails', 'APIs REST', 'Sockets TCP'],
+			items: ['FastAPI', 'Node.js', 'Flask', 'Ruby on Rails', 'APIs REST', 'Sockets TCP'],
 		},
 		{
 			area: 'Frontend',
@@ -54,6 +54,10 @@ export const perfil = {
 		{
 			area: 'Bases de datos',
 			items: ['PostgreSQL', 'MySQL', 'Prisma'],
+		},
+		{
+			area: 'Integraciones e IA',
+			items: ['Gemini', 'WhatsApp Business API', 'Google Calendar API', 'OAuth 2.0'],
 		},
 		{
 			area: 'Cómputo paralelo',

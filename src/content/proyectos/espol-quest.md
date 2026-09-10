@@ -11,7 +11,7 @@ tecnologias:
 repo: https://github.com/josegavinov/espol-quest
 contexto: academico
 rol: "Backend del servicio de juego, CRUD del CMS en Rails y las pantallas de misiones y trivia"
-orden: 6
+orden: 7
 destacado: false
 ---
 
