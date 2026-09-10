@@ -10,7 +10,7 @@ tecnologias:
   - PostgreSQL
 repo: https://github.com/josegavinov/espol-quest
 contexto: academico
-rol: Backend en Ruby on Rails y modelo de datos
+rol: "Backend del servicio de juego, CRUD del CMS en Rails y las pantallas de misiones y trivia"
 orden: 6
 destacado: false
 ---
@@ -34,3 +34,14 @@ Dos servicios separados que hablan por HTTP:
 Separar el motor del juego de la API permitió que cada parte avanzara sin
 bloquear a la otra, y que el estado del jugador viva en la base de datos y no
 en el navegador.
+
+## Mi parte
+
+Levanté la estructura del repositorio y la primera versión del servicio de
+juego —modelos de misiones, preguntas y respuestas, sus endpoints y los datos
+semilla— que empezó en **Flask** antes de que el equipo migrara la API a Ruby
+on Rails. Sobre Rails hice el CRUD del CMS de misiones y trivias.
+
+Del lado del frontend, el catálogo de misiones con su estado por jugador, la
+trivia con retroalimentación inmediata y la pantalla de administración. Más el
+script de pruebas del backend.

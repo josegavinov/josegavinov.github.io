@@ -25,15 +25,44 @@ export const perfil = {
 	// La `ñ` va percent-encoded (%C3%B1) para que el enlace sobreviva al
 	// copiarlo entre herramientas; el navegador la muestra normal.
 	linkedin: 'https://www.linkedin.com/in/gavi%C3%B1ojose',
-	// `fuerte: true` lo pinta en tinta y negrita; el resto queda en gris.
+	// Resumen corto para la portada. `fuerte: true` lo pinta en tinta y negrita.
 	habilidades: [
-		{ nombre: 'Java', fuerte: true },
+		{ nombre: 'TypeScript', fuerte: true },
 		{ nombre: 'Python', fuerte: true },
+		{ nombre: 'C', fuerte: false },
+		{ nombre: 'Java', fuerte: false },
+		{ nombre: 'React', fuerte: false },
 		{ nombre: 'Node.js', fuerte: false },
-		{ nombre: 'JavaScript', fuerte: false },
-		{ nombre: 'MySQL', fuerte: false },
 		{ nombre: 'PostgreSQL', fuerte: false },
 		{ nombre: 'Docker', fuerte: false },
-		{ nombre: 'Git', fuerte: false },
+	],
+	// Inventario completo para "Sobre mí", agrupado por área. Cada entrada
+	// sale de un proyecto publicado: si algo no está en el portafolio,
+	// tampoco está aquí.
+	stack: [
+		{
+			area: 'Lenguajes',
+			items: ['TypeScript', 'JavaScript', 'Python', 'Java', 'C', 'C++', 'Ruby'],
+		},
+		{
+			area: 'Backend',
+			items: ['Node.js', 'Flask', 'Ruby on Rails', 'APIs REST', 'Sockets TCP'],
+		},
+		{
+			area: 'Frontend',
+			items: ['React', 'Next.js', 'Astro', 'Phaser', 'Vite'],
+		},
+		{
+			area: 'Bases de datos',
+			items: ['PostgreSQL', 'MySQL'],
+		},
+		{
+			area: 'Cómputo paralelo',
+			items: ['CUDA', 'OpenCL'],
+		},
+		{
+			area: 'Herramientas',
+			items: ['Docker', 'Git', 'Vercel'],
+		},
 	],
 } as const;

@@ -48,11 +48,6 @@ const contacto = [
 				}
 			</dl>
 
-			<h2 class="antetitulo">Tecnologías</h2>
-			<p class="stack">
-				{perfil.habilidades.map((h) => <b class={h.fuerte ? 'fuerte' : undefined}>{h.nombre}</b>)}
-			</p>
-
 			<h2 class="antetitulo">Contacto</h2>
 			<dl class="ficha">
 				{
@@ -74,6 +69,26 @@ const contacto = [
 			</dl>
 		</aside>
 	</div>
+
+	<section class="tecnologias">
+		<h2>Tecnologías</h2>
+		<p class="nota">Todo lo de aquí está usado en algún proyecto del portafolio.</p>
+
+		<div class="areas">
+			{
+				perfil.stack.map((grupo) => (
+					<div class="area">
+						<h3>{grupo.area}</h3>
+						<p class="stack">
+							{grupo.items.map((item) => (
+								<b>{item}</b>
+							))}
+						</p>
+					</div>
+				))
+			}
+		</div>
+	</section>
 </Base>
 
 <style>
@@ -134,8 +149,45 @@ const contacto = [
 		text-underline-offset: 5px;
 	}
 
-	aside .stack {
-		margin-bottom: 2.2rem;
+	/* --- Tecnologías, a ancho completo --- */
+	.tecnologias {
+		margin-top: 4rem;
+		border-top: 2px solid var(--tinta);
+		padding-top: 1.5rem;
+	}
+
+	.tecnologias h2 {
+		font-size: var(--t-titulo);
+		font-weight: 800;
+		margin: 0 0 0.3rem;
+	}
+
+	.nota {
+		margin: 0 0 2rem;
+		font-size: var(--t-menor);
+		color: var(--suave);
+	}
+
+	.areas {
+		display: grid;
+		/* Dos columnas anchas: con tres, las listas largas parten en dos
+		   líneas y el separador queda colgando al final. */
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
+		gap: 1.9rem 3rem;
+	}
+
+	.area h3 {
+		margin: 0 0 0.45rem;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-etiqueta);
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--suave);
+	}
+
+	.area .stack {
+		line-height: 1.7;
 	}
 
 	@media (max-width: 900px) {
