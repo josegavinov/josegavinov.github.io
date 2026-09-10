@@ -7,8 +7,9 @@ tecnologias:
   - Node.js
   - MySQL
 repo: https://github.com/josegavinov/aso-carnets
-orden: 1
-destacado: true
+contexto: personal
+orden: 6
+destacado: false
 ---
 
 ## El problema

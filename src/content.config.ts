@@ -15,6 +15,12 @@ const proyectos = defineCollection({
 		tecnologias: z.array(z.string()),
 		repo: z.url().optional(),
 		demo: z.url().optional(),
+		// Sin repo público: la tarjeta lo dice en vez de mostrar un enlace roto.
+		privado: z.boolean().default(false),
+		// Da el rótulo de la tarjeta y sitúa el proyecto para quien lo lee.
+		contexto: z.enum(['profesional', 'academico', 'personal']).default('personal'),
+		// Para proyectos en equipo: qué hiciste tú.
+		rol: z.string().optional(),
 		// Controla el orden en la lista: menor número aparece primero.
 		orden: z.number().default(99),
 		destacado: z.boolean().default(false),

@@ -7,14 +7,22 @@ interface Props {
 }
 
 const { proyecto } = Astro.props;
-const { titulo, descripcion, problema, tecnologias, repo, demo, borrador } = proyecto.data;
+const { titulo, descripcion, problema, tecnologias, repo, demo, privado, contexto, rol, borrador } =
+	proyecto.data;
 
 // La cita del problema es lo que lleva el peso visual de la tarjeta.
 const cita = problema ?? descripcion;
+
+const rotulos = {
+	profesional: 'Proyecto profesional',
+	academico: 'Proyecto académico',
+	personal: 'Proyecto personal',
+} as const;
+const rotulo = borrador ? 'Plantilla' : rotulos[contexto];
 ---
 
 <article>
-	<p class="tipo">{borrador ? 'Plantilla' : 'Proyecto real'}</p>
+	<p class="tipo">{rotulo}</p>
 
 	<blockquote>«{cita}»</blockquote>
 
@@ -24,9 +32,12 @@ const cita = problema ?? descripcion;
 		{tecnologias.map((tec) => <b>{tec}</b>)}
 	</p>
 
+	{rol && <p class="rol">Mi parte: {rol}</p>}
+
 	<p class="enlaces">
 		<a href={ruta(`/proyectos/${proyecto.id}`)}>Ver detalle ↗</a>
 		{repo && <a href={repo} rel="noopener noreferrer" target="_blank">Código ↗</a>}
+		{privado && !repo && <span class="cerrado">Repositorio privado</span>}
 		{demo && <a href={demo} rel="noopener noreferrer" target="_blank">Demo ↗</a>}
 	</p>
 </article>
@@ -73,6 +84,19 @@ const cita = problema ?? descripcion;
 
 	.stack {
 		margin: 0;
+	}
+
+	.rol {
+		margin: 0;
+		font-family: 'Archivo', sans-serif;
+		font-size: var(--t-menor);
+		font-weight: 500;
+		color: var(--suave);
+	}
+
+	.cerrado {
+		font-weight: 500;
+		color: var(--suave);
 	}
 
 	.enlaces {
